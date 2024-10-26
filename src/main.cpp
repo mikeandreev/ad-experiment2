@@ -2,9 +2,11 @@
 #include <torch/csrc/autograd/variable.h>
 #include <torch/csrc/autograd/function.h>
 
+#include <cmath>
 #include <iostream>
 
-int main() {
+
+void test1() {
     std::cout << "Test 1\n";
     torch::Tensor tensor = torch::rand({2, 3});
     std::cout << tensor << std::endl;
@@ -15,9 +17,22 @@ int main() {
     torch::Tensor c = (a*a + tensor).sum();
     std::cout << "a: " << a << "\n";
     std::cout << "c: " << c << "\n";
-    std::cout << "Autograd call\n";
-    const auto da = torch::autograd::grad({c}, {a});
+
     //c.backward(); // a.grad() will now hold the gradient of c w.r.t. a.
-    std::cout << da << "\n";
-    std::cout << "Done\n";
+    std::cout << "Autograd call\n";
+    // \frac{dc}{da}
+    const auto dc_da = torch::autograd::grad({c}, {a});
+    std::cout << dc_da << "\n";
+
+    std::cout << "Done: Test1\n";
 }
+
+
+int main() {
+    std::cout << "******************************************\n";
+    test1();
+    std::cout << "******************************************\n";
+    std::cout << "******************************************\n";
+    std::cout << "Done: all\n";
+}
+
