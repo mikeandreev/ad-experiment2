@@ -1,7 +1,10 @@
 build*
+
 .vscode
 .cache
+
 *.swp
 *.swo
 *.out
 .idea
+
